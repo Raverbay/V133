@@ -17,6 +17,309 @@ html,body{margin:0;width:100%;height:100%;background:#111;color:#eee;font-family
 #frame{position:absolute;top:64px;left:0;right:0;bottom:0;width:100%;height:calc(100% - 64px);border:0;background:var(--cream)}
 .hint{margin-left:auto;font-size:8px;color:#777;white-space:nowrap}
 @media(max-width:700px){.preview-bar{height:58px;padding:7px 9px}.brand{display:none}.nav{width:100%}.nav button{font-size:7px;padding:8px 10px}.hint{display:none}#frame{top:58px;height:calc(100% - 58px)}}
+
+/* V42 — logo rendered as a true alpha mask: no image box can appear */
+.logo .brand-symbol,
+.header .brand-symbol,
+.site-header .brand-symbol{
+  width:34px!important;height:34px!important;
+  display:block!important;
+  object-fit:contain;
+  background:#fff!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.42),
+    0 3px 6px rgba(0,0,0,.16);
+  -webkit-mask-image:url("mediabay-symbol-transparent.png");
+  mask-image:url("mediabay-symbol-transparent.png");
+  -webkit-mask-size:contain;
+  mask-size:contain;
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-position:center;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+  opacity:1!important;
+  font-size:0!important;
+  color:transparent!important;
+}
+.logo .brand-symbol{
+  color:transparent!important;
+}
+@media(max-width:700px){
+  .logo .brand-symbol,
+  .header .brand-symbol,
+  .site-header .brand-symbol{
+    width:30px!important;height:30px!important;
+  }
+}
+
+</style>
+
+<style id="mediabay-v65-motion-fix">
+/* V65 — Premium Motion / robust mobile-safe reveal system */
+:root{--mb65-ease:cubic-bezier(.16,1,.3,1)}
+html{scroll-behavior:smooth;overflow-x:hidden}
+/* Kill the previous conflicting reveal states and let V65 own the choreography. */
+.mb-premium-reveal,.mb-reveal,.mb-title,.mb-service{opacity:1!important;transform:none!important;clip-path:none!important;visibility:visible!important}
+.mb65-reveal{opacity:0!important;transform:translate3d(0,42px,0)!important;clip-path:inset(0 0 100% 0)!important;visibility:hidden!important;transition:opacity .72s var(--mb65-ease),transform .95s var(--mb65-ease),clip-path .95s var(--mb65-ease)!important}
+.mb65-reveal.mb65-visible{opacity:1!important;transform:none!important;clip-path:inset(0)!important;visibility:visible!important}
+.mb65-reveal[data-mb65-delay="1"]{transition-delay:.04s!important}.mb65-reveal[data-mb65-delay="2"]{transition-delay:.10s!important}.mb65-reveal[data-mb65-delay="3"]{transition-delay:.16s!important}.mb65-reveal[data-mb65-delay="4"]{transition-delay:.22s!important}.mb65-reveal[data-mb65-delay="5"]{transition-delay:.28s!important}
+.mb65-depth{will-change:transform;transition:transform .16s linear}
+.mb65-magnetic{will-change:transform;transition:transform .42s var(--mb65-ease)}
+@media(max-width:700px){
+ .mb65-reveal{transform:translate3d(0,26px,0)!important;transition-duration:.65s!important}
+ .mb65-depth{transition:none}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}.mb65-reveal{opacity:1!important;transform:none!important;clip-path:none!important;visibility:visible!important;transition:none!important}.mb65-depth,.mb65-magnetic{transition:none!important;transform:none!important}
+}
+</style>
+
+<style id="mediabay-v66-motion">
+/* V66 — Premium motion, fail-safe: content is NEVER hidden while waiting for JS. */
+:root{--mb66-ease:cubic-bezier(.16,1,.3,1)}
+/* Neutralise previous reveal systems so they cannot blank a section. */
+.mb-reveal,.mb-title,.mb-service,.mb65-reveal,.mb-premium-reveal{
+  opacity:1!important; visibility:visible!important; transform:none!important; clip-path:none!important;
+}
+/* V66 animation is opt-in: JS adds this class only when an element is already on-screen. */
+.mb66-motion{
+  will-change:transform,opacity;
+}
+.mb66-motion.mb66-play{
+  animation:mb66-enter .9s var(--mb66-ease) both;
+  animation-delay:var(--mb66-delay,0ms);
+}
+@keyframes mb66-enter{
+  from{opacity:.01;transform:translate3d(0,34px,0)}
+  65%{opacity:1}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@media(max-width:700px){
+  .mb66-motion.mb66-play{animation-duration:.72s}
+}
+@media(prefers-reduced-motion:reduce){
+  .mb66-motion.mb66-play{animation:none!important;opacity:1!important;transform:none!important}
+}
+</style>
+
+
+
+<style id="mediabay-v68-cinematic-engine">
+/* V68 — deterministic cinematic scroll. No dependency on ViewTimeline or hidden content. */
+:root{--mb68-ease:cubic-bezier(.16,1,.3,1)}
+html{scroll-behavior:auto}
+main{scroll-snap-type:y proximity}
+main>section{scroll-snap-align:start;scroll-snap-stop:normal}
+/* CSS translate is independent from existing transform rules in the legacy site. */
+main>section .head,
+main>section .giant,
+main>section .desc,
+main>section .manifesto-statement,
+main>section .manifesto-copy,
+main>section .manifesto-pillars,
+main>section .services,
+main>section .service-detail,
+main>section .service-note,
+main>section .diagnostic,
+main>section .approach-bottom,
+main>section .internal-tech,
+main>section .experience-intro,
+main>section .sector-list,
+main>section .proof,
+main>section .contact-copy,
+main>section .contact-copy h2,
+main>section .contact-form{
+  translate:0 var(--mb68-shift,0px);
+  scale:var(--mb68-scale,1);
+  opacity:var(--mb68-opacity,1);
+  will-change:translate,scale,opacity;
+  transition:opacity .08s linear;
+}
+main>section .giant{transition:translate .04s linear,scale .04s linear,opacity .08s linear}
+main>section .service-detail:nth-child(2){--mb68-delay:0}
+main>section .service-detail:nth-child(3){--mb68-delay:1}
+main>section .service-detail:nth-child(4){--mb68-delay:2}
+main>section .service-detail:nth-child(5){--mb68-delay:3}
+main>section .service-detail:nth-child(6){--mb68-delay:4}
+main>section .service-detail:nth-child(7){--mb68-delay:5}
+main>section .service-detail:nth-child(8){--mb68-delay:6}
+@media(max-width:700px){
+  main>section .head,main>section .giant,main>section .desc,main>section .manifesto-statement,main>section .manifesto-copy,main>section .manifesto-pillars,main>section .services,main>section .service-detail,main>section .service-note,main>section .diagnostic,main>section .approach-bottom,main>section .internal-tech,main>section .experience-intro,main>section .sector-list,main>section .proof,main>section .contact-copy,main>section .contact-copy h2,main>section .contact-form{will-change:translate,opacity}
+  main{scroll-snap-type:none}
+}
+@media(prefers-reduced-motion:reduce){
+  main{scroll-snap-type:none}
+  main>section *{translate:none!important;scale:1!important;opacity:1!important;will-change:auto!important}
+}
+/* Menu must sit above the full-screen panel while open. */
+.site-header{z-index:10001}
+.site-menu{z-index:10000;pointer-events:none}
+.site-menu.open{pointer-events:auto}
+.site-header.menu-active .menu-icon i:first-child{top:8px;transform:rotate(45deg)}
+.site-header.menu-active .menu-icon i:last-child{top:8px;transform:rotate(-45deg)}
+.site-header.menu-active .menu-btn span{font-size:0}
+.site-header.menu-active .menu-btn span:after{content:'CLOSE';font-size:10px;letter-spacing:.18em}
+@media(max-width:700px){.site-header.menu-active .menu-btn span:after{font-size:9px}}
+</style>
+<script id="mediabay-v68-cinematic-engine">
+(function(){
+  'use strict';
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const sections=[...document.querySelectorAll('main>section')];
+  if(!sections.length) return;
+  let ticking=false;
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+  function render(){
+    ticking=false;
+    const vh=Math.max(1,innerHeight);
+    sections.forEach((s)=>{
+      const r=s.getBoundingClientRect();
+      if(r.bottom < -vh*0.35 || r.top > vh*1.35){
+        s.style.setProperty('--mb68-shift','0px');
+        s.style.setProperty('--mb68-scale','1');
+        s.style.setProperty('--mb68-opacity','1');
+        return;
+      }
+      /* 0 = just entering from below, 0.5 = centered, 1 = leaving above. */
+      const p=clamp((vh-r.top)/(vh+r.height),0,1);
+      const centered=1-Math.min(1,Math.abs(p-.5)*2);
+      const shift=((.5-p)*42);
+      const scale=.985+(centered*.015);
+      const opacity=.76+(centered*.24);
+      s.style.setProperty('--mb68-shift',shift.toFixed(2)+'px');
+      s.style.setProperty('--mb68-scale',scale.toFixed(4));
+      s.style.setProperty('--mb68-opacity',opacity.toFixed(3));
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(render)}}
+  addEventListener('scroll',request,{passive:true});
+  addEventListener('resize',request,{passive:true});
+  addEventListener('orientationchange',()=>setTimeout(request,80),{passive:true});
+  request();
+  addEventListener('load',()=>setTimeout(request,120),{once:true});
+})();
+</script>
+
+<style id="mediabay-v76-header-clean">
+/* V76 — centered symbol-only header + minimal menu/language controls */
+.site-header{
+  position:fixed;
+  z-index:9000;
+  left:0;
+  top:0;
+  width:100%;
+  height:76px;
+  padding:0 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:#fff;
+  border-bottom:1px solid #ffffff30;
+  mix-blend-mode:difference;
+}
+.site-header .logo{
+  position:absolute!important;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  margin:0;
+  padding:0;
+  gap:0!important;
+}
+.site-header .brand-symbol{
+  width:34px!important;
+  height:34px!important;
+  flex:0 0 34px!important;
+}
+.site-header .brand-name{display:none!important}
+
+.header-controls{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:15px;
+}
+.site-header .menu-btn{
+  width:30px;
+  height:20px;
+  padding:0;
+  margin:0;
+  border:0;
+  background:none;
+  color:inherit;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.site-header .menu-btn .menu-icon{
+  width:30px;
+  height:16px;
+  display:block;
+  position:relative;
+}
+.site-header .menu-btn .menu-icon i{
+  position:absolute;
+  left:0;
+  width:30px;
+  height:1px;
+  background:currentColor;
+  transition:.35s cubic-bezier(.16,1,.3,1);
+}
+.site-header .menu-btn .menu-icon i:first-child{top:3px}
+.site-header .menu-btn .menu-icon i:last-child{top:13px}
+.site-header .menu-open .menu-icon i:first-child{top:8px;transform:rotate(45deg)}
+.site-header .menu-open .menu-icon i:last-child{top:8px;transform:rotate(-45deg)}
+
+.site-header .lang-switch{
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  display:flex!important;
+  align-items:center;
+  gap:7px;
+  font-size:9px;
+  letter-spacing:.14em;
+}
+.site-header .lang-switch button{
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:inherit!important;
+  font:inherit;
+  letter-spacing:inherit;
+  line-height:1;
+  cursor:pointer;
+  opacity:.42;
+  transition:opacity .2s ease;
+}
+.site-header .lang-switch button.active{opacity:1}
+
+@media(max-width:700px){
+  .site-header{height:64px;padding:0 20px}
+  .site-header .logo{width:34px;height:34px}
+  .site-header .brand-symbol{width:30px!important;height:30px!important;flex-basis:30px!important}
+  .header-controls{gap:12px}
+  .site-header .menu-btn,.site-header .menu-btn .menu-icon{width:28px}
+  .site-header .menu-btn .menu-icon i{width:28px}
+  .site-header .lang-switch{font-size:8px;gap:6px}
+}
+</style>
+
+<style id="mediabay-v77-no-menu-label">
+.site-header .menu-btn span{display:none!important}
 </style>
 </head>
 <body>
@@ -86,6 +389,179 @@ frame.addEventListener('load', () => {
 });
 
 showPage('home');
+</script>
+
+<script id="mediabay-v65-motion-fix-js">
+(function(){
+  function boot(){
+    const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const sections=[...document.querySelectorAll('main > section')];
+    if(!sections.length)return;
+
+    /* Only V65-managed elements are hidden. Existing content can never disappear because
+       of an observer timing failure. */
+    const selectors=[
+      '.head','.giant','.desc','.facts','.contact-copy h2','.contact-form',
+      '.approach-intro > div','.diagnostic','.approach-bottom','.service-detail',
+      '.service-note','.project','.client','.internal-tech'
+    ];
+    const els=[];
+    sections.forEach(section=>{
+      selectors.forEach(sel=>section.querySelectorAll(sel).forEach(el=>{if(!els.includes(el))els.push(el)}));
+    });
+
+    if(reduce){els.forEach(el=>el.classList.remove('mb65-reveal'));return;}
+    els.forEach((el,i)=>{
+      el.classList.remove('mb-premium-reveal','mb-premium-visible','mb-reveal','mb-visible','mb-title','mb-service','mb-hidden');
+      el.classList.add('mb65-reveal');
+      el.dataset.mb65Delay=String((i%5)+1);
+    });
+
+    const reveal=el=>{el.classList.add('mb65-visible');};
+    const io=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){reveal(entry.target);io.unobserve(entry.target)}
+    }),{threshold:0.02,rootMargin:'0px 0px -4% 0px'});
+    els.forEach(el=>io.observe(el));
+
+    /* Guarantee the first visible frame is revealed even on browsers that restore scroll
+       position before IntersectionObserver has delivered its first batch. */
+    const revealVisible=()=>{
+      const vh=innerHeight||document.documentElement.clientHeight;
+      els.forEach(el=>{const r=el.getBoundingClientRect();if(r.bottom>0&&r.top<vh*.96)reveal(el)});
+    };
+    requestAnimationFrame(()=>requestAnimationFrame(revealVisible));
+    addEventListener('pageshow',()=>setTimeout(revealVisible,30),{passive:true});
+
+    /* Controlled image depth: tiny, never enough to alter layout. */
+    const imgs=[...document.querySelectorAll('main section img:not(.logo img):not(.site-header img)')];
+    imgs.forEach(img=>img.classList.add('mb65-depth'));
+    let ticking=false;
+    const frame=()=>{
+      ticking=false;const vh=innerHeight||1;
+      imgs.forEach(img=>{const r=img.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const p=(r.top+r.height/2-vh/2)/(vh/2);img.style.transform='translate3d(0,'+Math.max(-8,Math.min(8,-p*7)).toFixed(2)+'px,0)'});
+    };
+    addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(frame)}},{passive:true});
+    addEventListener('resize',frame,{passive:true});frame();
+
+    /* Quiet desktop magnetic response. */
+    if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+      document.querySelectorAll('.menu-btn,.next,.scroll-dot,.project-open,.page-close,.interactive-tag').forEach(el=>{
+        el.classList.add('mb65-magnetic');
+        el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left-r.width/2)*.12,y=(e.clientY-r.top-r.height/2)*.12;el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0)'},{passive:true});
+        el.addEventListener('pointerleave',()=>el.style.transform='');
+      });
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+})();
+</script>
+
+<script id="mediabay-v66-motion-js">
+(function(){
+  'use strict';
+  const reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const candidates=[...document.querySelectorAll(
+    'main > section .head, main > section .giant, main > section .desc,'+
+    'main > section .manifesto-statement, main > section .manifesto-copy,'+
+    'main > section .manifesto-pillars, main > section .service-detail,'+
+    'main > section .service-note, main > section .diagnostic,'+
+    'main > section .approach-bottom, main > section .internal-tech,'+
+    'main > section .project, main > section .client,'+
+    'main > section .experience-intro, main > section .sector-list,'+
+    'main > section .proof, main > section .contact-copy h2,'+
+    'main > section .contact-form'
+  )];
+  if(!candidates.length) return;
+
+  candidates.forEach((el,i)=>{
+    /* Remove every legacy hidden state, then opt into the safe V66 choreography. */
+    el.classList.remove('mb65-reveal','mb65-visible','mb-hidden','mb-premium-reveal','mb-premium-visible');
+    el.classList.add('mb66-motion');
+    el.style.setProperty('--mb66-delay',((i%5)*70)+'ms');
+  });
+
+  if(reduce) return;
+
+  const play=(el)=>{
+    if(el.dataset.mb66Played==='1') return;
+    el.dataset.mb66Played='1';
+    /* Force a clean animation even if a previous class/state touched transform. */
+    el.classList.remove('mb66-play');
+    void el.offsetWidth;
+    el.classList.add('mb66-play');
+  };
+
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        play(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.04,rootMargin:'0px 0px -3% 0px'});
+
+  candidates.forEach(el=>io.observe(el));
+
+  /* Initial viewport: explicitly play only what is visible. */
+  const revealInitial=()=>{
+    const vh=innerHeight||document.documentElement.clientHeight;
+    candidates.forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(r.bottom>0 && r.top<vh*.98) play(el);
+    });
+  };
+  requestAnimationFrame(()=>requestAnimationFrame(revealInitial));
+
+  /* Smooth, tiny depth effect — transform only, never opacity/display. */
+  const depthTargets=[...document.querySelectorAll('main > section .giant, main > section .manifesto-statement')];
+  let ticking=false;
+  const depth=()=>{
+    ticking=false;
+    const vh=innerHeight||1;
+    depthTargets.forEach(el=>{
+      if(!el.dataset.mb66Played) return;
+      const r=el.getBoundingClientRect();
+      if(r.bottom<0 || r.top>vh) return;
+      const p=(r.top+r.height/2-vh/2)/(vh/2);
+      const y=Math.max(-5,Math.min(5,-p*3));
+      /* Only apply depth after the entrance animation has completed. */
+      el.style.setProperty('--mb66-depth',y.toFixed(2)+'px');
+    });
+  };
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(depth)}},{passive:true});
+  addEventListener('resize',depth,{passive:true});
+  depth();
+
+  /* Premium page transition for internal HTML links: short overlay, no blank page. */
+  const layer=document.createElement('div');
+  layer.id='mb66-page-transition';
+  layer.innerHTML='<span>MEDIABAY ↘</span>';
+  Object.assign(layer.style,{
+    position:'fixed',inset:'0',zIndex:'100000',background:'#101510',
+    color:'#c8ff32',display:'grid',placeItems:'center',
+    fontSize:'10px',letterSpacing:'.22em',textTransform:'uppercase',
+    pointerEvents:'none',transform:'translateY(100%)',
+    transition:'transform .72s cubic-bezier(.77,0,.18,1)'
+  });
+  document.body.appendChild(layer);
+  document.querySelectorAll('a[href$=".html"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const href=a.getAttribute('href');
+      if(!href || href.startsWith('#') || a.target==='_blank') return;
+      e.preventDefault();
+      layer.style.transform='translateY(0)';
+      setTimeout(()=>location.href=href,520);
+    });
+  });
+  addEventListener('pageshow',()=>{
+    layer.style.transition='none';
+    layer.style.transform='translateY(-100%)';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      layer.style.transition='transform .72s cubic-bezier(.77,0,.18,1)';
+      layer.style.transform='translateY(-100%)';
+    }));
+  });
+})();
 </script>
 </body>
 </html>
