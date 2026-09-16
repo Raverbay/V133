@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MediaBay — Thank you</title><style>
+:root{--acid:#c8ff32;--cream:#f1e7d2;--ink:#101510;--forest:#123b27}
+*{box-sizing:border-box}body{margin:0;background:var(--acid);color:var(--ink);font-family:Arial,Helvetica,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+header{height:92px;padding:0 4.5vw;display:flex;align-items:center;border-bottom:1px solid rgba(16,21,16,.3);font-size:20px;font-weight:900;letter-spacing:-.06em}
+main{padding:12vw 4.5vw}.meta{font-size:8px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}h1{font-size:clamp(5rem,13vw,14rem);line-height:.7;letter-spacing:-.1em;margin:8vw 0 5vw}p{font-size:clamp(18px,2vw,28px);max-width:650px;line-height:1.4}a{display:inline-block;margin-top:35px;color:inherit;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+
+.header .brand-lockup,.site-header .brand-lockup{display:inline-flex;align-items:center;gap:10px}
+.header .brand-symbol,.site-header .brand-symbol{width:30px;height:30px;object-fit:contain;display:block}
+.header .logo,.site-header .logo{display:inline-flex;align-items:center;gap:9px}
+@media(max-width:700px){
+ .header .brand-symbol,.site-header .brand-symbol{width:27px;height:27px}
+ .header .logo,.site-header .logo{gap:7px}
+}
+
+
+/* V39 — symbol-only embossed header mark */
+.logo .brand-symbol,
+.header .brand-symbol,
+.site-header .brand-symbol{
+  width:34px!important;height:34px!important;object-fit:contain;
+  display:block;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0;
+  filter:none;
+  mix-blend-mode:screen;
+  opacity:.94;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.38),
+    0 -1px 0 rgba(0,0,0,.10),
+    0 3px 7px rgba(0,0,0,.20);
+  transition:transform .25s ease, filter .25s ease, opacity .25s ease;
+}
+.logo:hover .brand-symbol,
+.header .logo:hover .brand-symbol,
+.site-header .logo:hover .brand-symbol{
+  transform:translateY(-1px);
+  opacity:1;
+  filter:none drop-shadow(0 2px 3px rgba(0,0,0,.28));
+}
+@media(max-width:700px){
+  .logo .brand-symbol,
+  .header .brand-symbol,
+  .site-header .brand-symbol{
+    width:30px!important;height:30px!important;
+  }
+}
+
+</style></head><body><header><img class="brand-symbol" src="mediabay-symbol.png" alt="MediaBay" aria-hidden="true"></header><main><div class="meta">REQUEST RECEIVED / MEDIA BAY</div><h1>WE'LL<br><span style="color:var(--forest)">BE IN TOUCH.</span></h1><p>Your message is on its way. We’ll review the project and get back to you.</p><a href="index.html">← Back to MediaBay</a></main></body></html>
