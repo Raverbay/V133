@@ -31,10 +31,31 @@
 .hero h1{white-space:nowrap}
 .contact-wrap{min-height:0}
 </style>
+
+<style id="v86-header-contact-final">
+/* V86: contact header contains ONLY symbol + menu lines + language. */
+.site-header{font-size:0!important;overflow:hidden!important;}
+.site-header > .logo{display:block!important;position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:34px!important;height:34px!important;z-index:2!important;}
+.site-header > .logo img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;}
+.site-header .header-controls{font-size:9px!important;display:flex!important;align-items:center!important;gap:14px!important;z-index:3!important;}
+.site-header .menu-btn{display:block!important;visibility:visible!important;opacity:1!important;width:30px!important;height:18px!important;}
+.site-header .menu-icon{display:block!important;width:30px!important;height:16px!important;}
+.site-header .menu-icon i{display:block!important;visibility:visible!important;}
+.site-header .lang-switch,.site-header .lang-switch button{font-size:9px!important;}
+/* Kill any legacy title/brand node accidentally left inside the header. */
+.site-header h1,.site-header h2,.site-header .brand-name,.site-header .page-title,.site-header .masthead-title,.site-header .header-title,.site-header .site-title{display:none!important;}
+.hero .eyebrow{display:none!important;}
+@media(max-width:700px){
+ .site-header > .logo{width:30px!important;height:30px!important;}
+ .site-header .header-controls{right:20px!important;gap:12px!important;}
+ .site-header .menu-btn,.site-header .menu-icon{width:28px!important;}
+ .site-header .menu-icon i{width:28px!important;}
+}
+</style>
 </head>
 <body>
 <header class="site-header">
-<a class="logo" href="index.html" aria-label="MediaBay"><img src="mediabay-logo-green.png" alt=""></a>
+<a class="logo" href="index.html" aria-label="MediaBay"><img src="mediabay-symbol.png" alt=""></a>
 <div class="header-controls"><button class="menu-btn" type="button" aria-label="Menu"><span class="menu-icon"><i></i><i></i></span></button><div class="lang-switch" aria-label="Lingua"><button class="active" type="button">IT</button><button type="button">EN</button></div></div>
 </header>
 <div class="site-menu" id="siteMenu" aria-hidden="true">
@@ -52,7 +73,7 @@
   </nav>
 </div>
 <main>
-<section class="hero"><span class="eyebrow">08 / CONTATTI</span><h1>PARLIAMONE.</h1></section>
+<section class="hero"><h1>PARLIAMONE.</h1></section>
 <section class="contact-wrap">
 <div class="contact-grid">
 <div class="details">
@@ -87,8 +108,13 @@
  menu&&menu.addEventListener('click',e=>{if(e.target.closest('a'))setOpen(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
  const langs=document.querySelectorAll('.lang-switch button');
- function setLang(lang){document.documentElement.lang=lang; document.querySelectorAll('[data-it][data-en]').forEach(el=>el.innerHTML=el.getAttribute('data-'+lang)); langs.forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===lang)); localStorage.setItem('mediabay-lang',lang);}
- langs.forEach(b=>b.addEventListener('click',()=>setLang(b.textContent.trim().toLowerCase())));
+ function setLang(lang){
+   document.documentElement.lang=lang;
+   document.querySelectorAll('[data-it][data-en]').forEach(el=>{el.innerHTML=el.getAttribute('data-'+lang)});
+   langs.forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===lang));
+   localStorage.setItem('mediabay-lang',lang);
+ }
+ langs.forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();setLang(b.textContent.trim().toLowerCase())}));
  setLang(localStorage.getItem('mediabay-lang')||'it');
 })();
 </script>
